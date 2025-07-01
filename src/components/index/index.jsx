@@ -97,13 +97,14 @@ const Index = () => {
           />
         </figure>
 
-        <div className="p-5 flex flex-col items-center justify-center gap-2">
+        <div className="p-5 flex flex-col items-center justify-center gap-2 max-md:p-2">
           <p className="text-t text-[14px] font-semibold text-center">
             Nike soccer
           </p>
           <div className="h-fit overflow-hidden">
             <motion.h2
-              className="text-t text-[68px] font-bold uppercase leading-[1] tracking-[-2.5px] text-center"
+              className="text-t text-[68px] font-bold uppercase leading-[1] tracking-[-2.5px] text-center
+              max-fl:text-[52px] max-lg:text-[44px] max-md:text-[36px] max-fl:tracking-[-2px] max-lg:tracking-[-1px]"
               variants={textSlideAnimation}
               initial="initial"
               animate="animateNoCustom"
@@ -137,7 +138,10 @@ const Index = () => {
               <p className="mb-2 text-p text-[14px] font-semibold text-center">
                 Scary Good
               </p>
-              <h2 className="mb-2 text-p text-[68px] font-bold uppercase leading-[1] tracking-[-2.5px] text-center">
+              <h2
+                className="mb-2 text-p text-[68px] font-bold uppercase leading-[1] tracking-[-2.5px] text-center
+              max-fl:text-[52px] max-lg:text-[44px] max-md:text-[36px] max-fl:tracking-[-2px] max-lg:tracking-[-1px]"
+              >
                 COLE PALMER
               </h2>
               <p className="mb-4 text-p text-[14px] font-semibold text-center">
@@ -172,7 +176,7 @@ const Index = () => {
             />
           </figure>
 
-          <div className="w-full p-5 grid grid-cols-3 gap-2">
+          <div className="w-full p-5 grid grid-cols-3 gap-2 max-md:grid-cols-1 max-md:p-2">
             {players.map((player, index) => (
               <div key={index} className="relative w-full h-[500px]">
                 <figure className="mb-8 size-full">
@@ -196,7 +200,7 @@ const Index = () => {
                   )}
                 </figure>
                 <div className="absolute bottom-0 p-5">
-                  <h2 className="mb-2 text-p text-[26px] font-semibold text-center">
+                  <h2 className="mb-2 text-p text-[26px] font-semibold max-md:text-[18px]">
                     {player.name}
                   </h2>
                   <button
@@ -222,7 +226,7 @@ const Index = () => {
             />
           </figure>
 
-          <div className="w-full p-5 grid grid-cols-3 gap-2">
+          <div className="w-full p-5 grid grid-cols-3 gap-2 max-md:grid-cols-1 max-md:p-2">
             {scaryProducts.map((item, i) => (
               <div key={i} className="relative w-full h-[500px]">
                 <figure className="mb-8 size-full">
@@ -231,7 +235,7 @@ const Index = () => {
                     width={2200}
                     height={2200}
                     alt={item.title}
-                    className="size-full object-cover"
+                    className="size-full object-cover max-md:object-fill"
                   />
                 </figure>
                 <div className="absolute bottom-0 p-5">
@@ -277,12 +281,15 @@ const Index = () => {
               className="size-full object-cover"
             />
           </figure>
-          <div className="absolute size-full p-5 flex items-center justify-center">
+          <div className="absolute size-full p-5 flex items-center justify-center max-md:p-2">
             <div className="flex flex-col items-center ">
               <p className="mb-2 text-p text-[14px] font-semibold text-center">
                 Look of soccer
               </p>
-              <h2 className="mb-2 text-p text-[68px] font-bold uppercase leading-[1] tracking-[-2.5px] text-center">
+              <h2
+                className="mb-2 text-p text-[68px] font-bold uppercase leading-[1] tracking-[-2.5px] text-center
+              max-fl:text-[52px] max-lg:text-[44px] max-md:text-[36px] max-fl:tracking-[-2px] max-lg:tracking-[-1px]"
+              >
                 Fearless Style
               </h2>
               <p className="text-p text-[14px] font-semibold text-center">
@@ -303,10 +310,12 @@ const Index = () => {
           </div>
         </div>
 
-        <div className="relative pt-12 p-5  w-full flex flex-col items-start justify-start">
-          <h2 className="mb-4 text-t text-[32px] font-medium">Federations</h2>
+        <div className="relative pt-12 p-5  w-full flex flex-col items-start justify-start max-md:p-2 max-md:pt-12">
+          <h2 className="mb-4 text-t text-[32px] font-medium max-md:text-[26px]">
+            Federations
+          </h2>
 
-          <div className="w-full grid grid-cols-3 gap-2">
+          <div className="w-full grid grid-cols-3 gap-2 max-md:grid-cols-1">
             {federations.map((shirt, index) => (
               <div key={index} className="relative w-full h-[500px]">
                 <figure className="mb-8 size-full">
@@ -319,7 +328,7 @@ const Index = () => {
                   />
                 </figure>
                 <div className="absolute bottom-0 p-5">
-                  <h2 className="mb-2 text-p text-[26px] font-semibold text-center">
+                  <h2 className="mb-2 text-p text-[26px] font-semibold max-md:text-[18px]">
                     {shirt.title}
                   </h2>
                   <button
@@ -334,12 +343,15 @@ const Index = () => {
           </div>
         </div>
 
-        <div className="pt-12 p-5 flex flex-col items-center justify-center gap-2">
+        <div className="pt-12 p-5 flex flex-col items-center justify-center gap-2 max-md:p-2 max-md:pt-12">
           <p className="text-t text-[14px] font-semibold text-center">
             Clubs & Federations
           </p>
           <div className="h-fit overflow-hidden">
-            <h2 className="text-t text-[68px] font-bold uppercase leading-[1] tracking-[-2.5px] text-center">
+            <h2
+              className="text-t text-[68px] font-bold uppercase leading-[1] tracking-[-2.5px] text-center
+              max-fl:text-[52px] max-lg:text-[44px] max-md:text-[36px] max-fl:tracking-[-2px] max-lg:tracking-[-1px]"
+            >
               BEWARE THE BADGE
             </h2>
           </div>

@@ -165,7 +165,10 @@ const Shop = () => {
             key={item.id}
             className="relative w-full p-2 select-none group"
             onMouseEnter={() => setHoveredShoeId(item.id)}
-            onClick={() => setSelectedShoe(item)}
+            onClick={() => {
+              setSelectedShoe(item);
+              scrollTo({ top: 0 });
+            }}
           >
             <AnimatePresence>
               {hoveredShoeId === item.id && (
