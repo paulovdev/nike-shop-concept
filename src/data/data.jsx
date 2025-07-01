@@ -1,0 +1,163 @@
+const data = [
+  // Original 6 produtos mantidos
+  {
+    id: 0,
+    img: "/shoes/bicudo/bicudo.png",
+    imgDetails: [
+      "/shoes/bicudo/bicudo.png",
+      "/shoes/bicudo/bicudo.png",
+      "/shoes/bicudo/bicudo.png",
+    ],
+    underTitle: "pointed",
+    title: "white pointed shoe",
+    price: "$999.9999.999.9999.99999.9999.9999",
+    description: "White pointed shoes, the best in the entire store",
+    category: "shoes",
+    subcategory: "sneakers",
+  },
+  {
+    id: 1,
+    img: "/shoes/nike-air-force-1/nike-air-force-1.png",
+    imgDetails: [
+      "/shoes/nike-air-force-1/nike-air-force-single-1.avif",
+      "/shoes/nike-air-force-1/nike-air-force-single-2.avif",
+      "/shoes/nike-air-force-1/nike-air-force-single-3.avif",
+      "/shoes/nike-air-force-1/nike-air-force-single-4.avif",
+      "/shoes/nike-air-force-1/nike-air-force-single-5.avif",
+      "/shoes/nike-air-force-1/nike-air-force-single-6.avif",
+      "/shoes/nike-air-force-1/nike-air-force-single-7.avif",
+      "/shoes/nike-air-force-1/nike-air-force-single-8.avif",
+      "/shoes/nike-air-force-1/nike-air-force-single-9.avif",
+    ],
+    underTitle: "Nike",
+    title: "AIR FORCE 1",
+    price: "$98.40",
+    description:
+      "Timeless style and comfort with premium leather and iconic cushioning.",
+    category: "shoes",
+    subcategory: "sneakers",
+  },
+  {
+    id: 2,
+    img: "/shoes/nike-dunk-triple/nike-dunk-triple.png",
+    imgDetails: [
+      "/shoes/nike-dunk-triple/nike-dunk-triple-single-1.webp",
+      "/shoes/nike-dunk-triple/nike-dunk-triple-single-2.webp",
+      "/shoes/nike-dunk-triple/nike-dunk-triple-single-3.webp",
+      "/shoes/nike-dunk-triple/nike-dunk-triple-single-4.webp",
+      "/shoes/nike-dunk-triple/nike-dunk-triple-single-5.webp",
+      "/shoes/nike-dunk-triple/nike-dunk-triple-single-6.webp",
+    ],
+    underTitle: "Nike",
+    title: "DUNK LOW",
+    price: "$110.00",
+    description: "Retro basketball DNA for streetwear lovers.",
+    category: "shoes",
+    subcategory: "casual",
+  },
+  {
+    id: 3,
+    img: "/shoes/nike-air-max-95/nike-air-max-95.png",
+    imgDetails: [
+      "/shoes/nike-air-max-95/nike-air-max-95-single-1.webp",
+      "/shoes/nike-air-max-95/nike-air-max-95-single-2.webp",
+      "/shoes/nike-air-max-95/nike-air-max-95-single-3.webp",
+      "/shoes/nike-air-max-95/nike-air-max-95-single-4.webp",
+      "/shoes/nike-air-max-95/nike-air-max-95-single-5.webp",
+      "/shoes/nike-air-max-95/nike-air-max-95-single-6.webp",
+      "/shoes/nike-air-max-95/nike-air-max-95-single-7.webp",
+      "/shoes/nike-air-max-95/nike-air-max-95-single-8.webp",
+    ],
+    underTitle: "Nike",
+    title: "AIR MAX 95 ESSENTIAL",
+    price: "$105.00",
+    description: "Inspired by the human body with bold style.",
+    category: "shoes",
+    subcategory: "running",
+  },
+  {
+    id: 4,
+    img: "/shoes/nike-vomero/nike-vomero.png",
+    imgDetails: [
+      "/shoes/nike-vomero/nike-vomero-single-1.avif",
+      "/shoes/nike-vomero/nike-vomero-single-2.avif",
+      "/shoes/nike-vomero/nike-vomero-single-3.avif",
+      "/shoes/nike-vomero/nike-vomero-single-4.avif",
+      "/shoes/nike-vomero/nike-vomero-single-5.avif",
+      "/shoes/nike-vomero/nike-vomero-single-6.avif",
+      "/shoes/nike-vomero/nike-vomero-single-7.avif",
+      "/shoes/nike-vomero/nike-vomero-single-8.avif",
+    ],
+    underTitle: "Nike",
+    title: "VOMERO 18",
+    price: "$158.00",
+    description: "Long-distance running comfort and cushioning.",
+    category: "shoes",
+    subcategory: "running",
+  },
+  {
+    id: 5,
+    img: "/clothing/nike-x-stussy/nike-x-stussy-jc.png",
+    imgDetails: [
+      "/clothing/nike-x-stussy/nike-x-stussy-single-1.avif",
+      "/clothing/nike-x-stussy/nike-x-stussy-single-2.avif",
+      "/clothing/nike-x-stussy/nike-x-stussy-single-3.avif",
+      "/clothing/nike-x-stussy/nike-x-stussy-single-4.avif",
+    ],
+    underTitle: "Nike x Stüssy",
+    title: "Striped Wool Jacket",
+    price: "$200.75",
+    description: "Long-distance running comfort and cushioning.",
+    category: "clothing",
+  },
+  {
+    id: 6,
+    img: "/clothing/nocta-x-nike/nocta-x-nike.png",
+    imgDetails: [
+      "/clothing/nocta-x-nike/nocta-x-nike-single-1.webp",
+      "/clothing/nocta-x-nike/nocta-x-nike-single-2.webp",
+      "/clothing/nocta-x-nike/nocta-x-nike-single-3.webp",
+    ],
+    underTitle: "Nike X Nocta",
+    title: "Nocta T-shirt",
+    price: "$76.65",
+    description:
+      "NOCTA is back. Dropped shoulders, longer sleeves, and a loose fit through the body and hips give the Max90 tee a relaxed, casual look.",
+    category: "clothing",
+  },
+
+  // ======================
+  // Itens adicionais abaixo
+  // ======================
+
+  ...Array.from({ length: 18 }, (_, i) => ({
+    id: 7 + i,
+    img: "/shoes/nike-air-force-1/nike-air-force-1.png",
+    imgDetails: [
+      "/shoes/nike-air-force-1/nike-air-force-single-1.avif",
+      "/shoes/nike-air-force-1/nike-air-force-single-2.avif",
+    ],
+    underTitle: "Nike",
+    title: `Custom AIR FORCE ${i + 2}`,
+    price: `$${90 + i * 5}.00`,
+    description: "Limited edition drop from Nike.",
+    category: "shoes",
+    subcategory: i % 2 === 0 ? "sneakers" : "running",
+  })),
+
+  ...Array.from({ length: 8 }, (_, i) => ({
+    id: 15 + i,
+    img: "/clothing/nike-x-stussy/nike-x-stussy-jc.png",
+    imgDetails: [
+      "/clothing/nike-x-stussy/nike-x-stussy-single-1.avif",
+      "/clothing/nike-x-stussy/nike-x-stussy-single-2.avif",
+    ],
+    underTitle: "Nike x Stüssy",
+    title: `Wool Jacket Edition ${i + 1}`,
+    price: `$${180 + i * 6}.00`,
+    description: "Premium collab piece with urban style.",
+    category: "clothing",
+  })),
+];
+
+export default data;
