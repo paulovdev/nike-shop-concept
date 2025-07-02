@@ -15,24 +15,20 @@ const Nav = ({ setMenuModal, setCartModal }) => {
         <div className="relative w-fit h-[40px] flex items-center">
           <AnimatePresence>
             {selectedShoe === null && (
-              <div className="absolute overflow-hidden">
+              <div
+                className="absolute h-fit overflow-hidden "
+                onClick={() => setMenuModal(true)}
+              >
                 <motion.div
                   variants={slideUpAnimation}
                   initial="initial"
                   animate="animate"
                   exit="exit"
                   custom={0.1}
-                  className="text-t text-[12px] uppercase flex items-center gap-2 pointer-events-auto"
+                  className=" flex flex-col gap-1.5  group"
                 >
-                  <div
-                    className="flex items-center gap-2 cursor-default group"
-                    onClick={() => setMenuModal(true)}
-                  >
-                    <div className="flex flex-col gap-1.5">
-                      <div className="w-[40px] h-[2px] bg-t group-hover:-translate-y-[1px] transition-all duration-500" />
-                      <div className="w-[40px] h-[2px] bg-t group-hover:translate-y-[1px] transition-all duration-500" />
-                    </div>
-                  </div>
+                  <div className="w-[36px] h-[2px] bg-t" />
+                  <div className="w-[36px] h-[2px] bg-t" />
                 </motion.div>
               </div>
             )}

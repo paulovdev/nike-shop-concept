@@ -19,13 +19,13 @@ const Menu = ({ menuModal, setMenuModal }) => {
       key={menuModal}
     >
       <motion.div
-        className="relative size-full flex-[1.5] bg-s z-50 select-none flex flex-col p-5 max-h-screen overflow-hidden max-lg:flex-[3]"
+        className="relative size-full flex-[1.5] bg-s z-50 select-none flex flex-col max-h-screen overflow-hidden max-lg:flex-[3]"
         variants={menuAnimation}
         initial="menuClosed"
         animate={menuModal && "menuOpen"}
         exit="menuClosed"
       >
-        <div className="flex items-center justify-end">
+        <div className="px-5 py-3 flex items-center justify-end">
           <div
             className="flex items-center gap-2 group"
             onClick={() => setMenuModal(false)}
@@ -38,7 +38,7 @@ const Menu = ({ menuModal, setMenuModal }) => {
           </div>
         </div>
 
-        <div className="pt-10 flex flex-col gap-2">
+        <div className="pt-10 p-10 flex flex-col gap-2 max-md:p-5 max-md:pt-10">
           {navItems.map((item, i) => (
             <div className="h-fit overflow-hidden">
               <motion.h2
@@ -69,8 +69,29 @@ const Menu = ({ menuModal, setMenuModal }) => {
           ))}
         </div>
 
+        <div className="p-10 pt-20 flex flex-col max-md:p-5 max-md:pt-20">
+          <p className="mb-4 text-[18px] text-t/75 font-medium max-md:text-[16px]">
+            Become a Nike Member for the best products, inspiration and stories
+            in sport. <span className="text-t/100">Learn more</span>
+          </p>
+          <div className="flex items-center gap-4">
+            <button
+              className="w-fit h-[35px] px-6 rounded-full bg-t text-p text-[14px] font-semibold text-center"
+              onClick={() => setSelectedMenu("shop")}
+            >
+              Shop
+            </button>
+            <button
+              className="w-fit h-[35px] px-6 rounded-full border border-bb text-t text-[14px] font-semibold text-center"
+              onClick={() => setSelectedMenu("shop")}
+            >
+              Shop
+            </button>
+          </div>
+        </div>
+
         <div className="w-full h-full flex items-end justify-end">
-          <div className="flex items-center gap-2">
+          <div className="px-5 py-3 flex items-center gap-2">
             {["FB", "X", "GRAM", "YT"].map((social, i) => (
               <TextSlide key={i} text={social} spanClass="px-2" />
             ))}
