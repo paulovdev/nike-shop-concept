@@ -5,17 +5,13 @@ const PreLoader = () => {
   const controls = useAnimation();
   const [text, setText] = useState(false);
 
-  const [count, setCount] = useState(0);
-
   const clipAnimation = {
     initial: { clipPath: "inset(100% 0% 0% 0%)" },
     animate: {
       clipPath: "inset(0% 0% 0% 0%)",
       transition: {
-        duration: 1,
-
+        duration: 0.5,
         ease: "linear",
-        delay: 0.05,
       },
     },
     exit: {
@@ -35,7 +31,7 @@ const PreLoader = () => {
         transition: {
           duration: 0.75,
           ease: [0.76, 0, 0.24, 1],
-          delay: 1,
+          delay: 0.15,
         },
       });
       setText(false);
@@ -44,23 +40,13 @@ const PreLoader = () => {
         height: "0vh",
         clipPath: "inset(0% 0% 10% 0%)",
         transition: {
-          duration: 1,
+          duration: 0.75,
           ease: [0.76, 0, 0.24, 1],
         },
       });
     };
     animation();
   }, []);
-
-  useEffect(() => {
-    if (count >= 100) return;
-
-    const timeout = setTimeout(() => {
-      setCount((prev) => prev + 1);
-    }, 10);
-
-    return () => clearTimeout(timeout);
-  }, [count]);
 
   return (
     <>
@@ -73,16 +59,6 @@ const PreLoader = () => {
           className="size-full flex items-center justify-center  max-lg:flex-col"
           animate={{ y: !text && -150, transition: { duration: 1 } }}
         >
-          <div className="size-full flex-[1.25] flex items-center bg-s max-lg:flex-[0.1] max-lg:order-1">
-            <div className="w-full p-5 flex items-center justify-between">
-              <p className="text-t text-[32px] font-bold uppercase">
-                LOADING...
-              </p>
-              <p className="text-t text-[32px] font-bold font-azeret uppercase">
-                {count}%
-              </p>
-            </div>
-          </div>
           <div className="relative flex-[2] flex items-center justify-center h-[80px] overflow-hidden">
             <motion.div
               variants={clipAnimation}

@@ -22,7 +22,7 @@ const textSlideUpAnimation = {
 };
 const Text = ({ text, spanClass }) => (
   <span
-    className={`text-t text-[12px] font-bold uppercase ${spanClass}`}
+    className={`text-t text-[12px] font-bold uppercase ${spanClass} transition-all duration-200`}
   >
     {text}
   </span>

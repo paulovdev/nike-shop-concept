@@ -9,62 +9,82 @@ import Shop from "@/components/shop/shop";
 import ShoesPhotosDetail from "@/components/shop-photos-detail/shop-photos-detail";
 
 import { useMenuStore, useShoeStore } from "@/store/zustand";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import ShopShoeDetail from "@/components/shop-shoe-detail/shop-shoe-detail";
 import Contact from "@/components/nav/menu/contact";
 import Footer from "../../public/footer/footer";
 import ShoesPhotosDetailMobile from "@/components/shop-photos-detail/shop-photos-detail-mobile";
 import Index from "@/components/index";
+import PromoNav from "@/components/promo-nav/promo-nav";
 
 const Home = () => {
   const [menuModal, setMenuModal] = useState(false);
   const [cartModal, setCartModal] = useState(false);
 
   const { selectedMenu } = useMenuStore();
-  const { selectedShoe, setSelectedShoe } = useShoeStore();
+  const { selectedShoe } = useShoeStore();
   const isDs = useIsDesktop();
   const indexMenu = selectedMenu === "index";
+  const shoeDetails = selectedShoe === null;
   return (
     <>
       <PreLoader />
 
       <main className="h-full">
         <div
-          className="relative flex items-start justify-between 
+          className="relative flex items-start justify-between
           max-lg:flex max-lg:flex-col max-lg:items-center max-lg:justify-center"
         >
-          <div
-            className={`w-full flex-[1.25] h-screen border-r ${
-              indexMenu ? "" : "border-bb"
-            } overflow-x-scroll z-50`}
-          >
-            {isDs ? <ShoesPhotosDetailMobile /> : <ShoesPhotosDetail />}
-          </div>
+          <AnimatePresence>
+            {!indexMenu && (
+              <motion.div
+                layout
+                initial={{ flex: 0, opacity: 0 }}
+                animate={{
+                  flex: shoeDetails ? 1 : 4,
+                  opacity: 1,
+                  transition: {
+                    duration: 0.75,
+                    ease: [0.76, 0, 0.24, 1],
+                  },
+                }}
+                exit={{
+                  flex: 0,
+                  opacity: 0,
+                  transition: {
+                    duration: 0.75,
+                    ease: [0.76, 0, 0.24, 1],
+                  },
+                }}
+                className={`sticky top-0 w-full h-screen overflow-x-scroll z-50 max-lg:relative`}
+              >
+                {isDs ? <ShoesPhotosDetailMobile /> : <ShoesPhotosDetail />}
+              </motion.div>
+            )}
+          </AnimatePresence>
 
-          <div className="w-full flex-[2]">
-            <div className="sticky top-0 left-0 w-full h-[50px] bg-s border-b border-t !border-bb flex items-center justify-between z-40 ">
+          <div className="size-full flex-[2.5]">
+            <div className="sticky top-0 left-0 w-full h-fit bg-s flex flex-col items-center justify-between z-40 ">
+              <PromoNav />
               <Nav setMenuModal={setMenuModal} setCartModal={setCartModal} />
             </div>
-
             <AnimatePresence mode="wait">
               {selectedShoe === null ? (
                 <>
-                  <div className="w-full h-[calc(100vh_-_100px)] max-lg:h-full overflow-y-scroll flex flex-col items-start justify-start">
+                  <div className="shop-class size-full max-lg:h-full flex flex-col items-start justify-start">
                     {selectedMenu === "shop" && <Shop />}
                     {selectedMenu === "index" && <Index />}
                     {selectedMenu === "contact" && <Contact />}
                   </div>
                 </>
               ) : (
-                <div className="w-full h-[calc(100vh_-_100px)] max-lg:h-full flex flex-col items-start justify-between">
+                <div className="w-full max-lg:h-full flex flex-col items-start justify-between">
                   <ShopShoeDetail />
                 </div>
               )}
             </AnimatePresence>
-            <div className="relative bottom-0 left-0 w-full h-[50px] bg-s border-t !border-bb flex items-center justify-between z-40">
-              <Footer setMenuModal={setMenuModal} setCartModal={setCartModal} />
-            </div>
+            <Footer />
           </div>
         </div>
       </main>

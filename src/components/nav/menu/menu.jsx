@@ -1,18 +1,17 @@
 import { menuAnimation, textSlideAnimation } from "./animations";
 import { X } from "lucide-react";
 import { motion } from "framer-motion";
-import { useMenuStore } from "@/store/zustand";
+import { useFilterStore, useMenuStore, useShoeStore } from "@/store/zustand";
 import TextSlide from "@/components/reusable/text-slide";
+import { SiNike } from "react-icons/si";
 
 const Menu = ({ menuModal, setMenuModal }) => {
-  const { selectedMenu, setSelectedMenu } = useMenuStore();
+  const { setSelectedShoe } = useShoeStore();
+  const { setSelectedMenu, selectedMenu } = useMenuStore();
+  const { setSelectedFilter, selectedFilter } = useFilterStore();
 
-  const navItems = [
-    { id: "shop", label: "shop" },
-    { id: "index", label: "index" },
-    { id: "contact", label: "contact" },
-  ];
-
+  const categories = ["shoes", "clothing", "accessories", "sports", "limited"];
+  const indexMenu = selectedMenu === "index";
   return (
     <div
       className="fixed w-screen h-[100dvh] flex items-center justify-between inset-0 z-100"
@@ -39,31 +38,61 @@ const Menu = ({ menuModal, setMenuModal }) => {
         </div>
 
         <div className="pt-10 p-10 flex flex-col gap-2 max-md:p-5 max-md:pt-10">
-          {navItems.map((item, i) => (
+          <div className="h-fit overflow-hidden">
+            <motion.div
+              className="w-full flex items-center justify-between gap-4"
+              variants={textSlideAnimation}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              custom={0.1}
+              onClick={() => {
+                setSelectedMenu("index");
+                setMenuModal(false);
+                scrollTo({ top: 0 });
+              }}
+            >
+              <div className="">
+                <SiNike
+                  className={indexMenu ? "text-t/100" : "text-t/50"}
+                  size={72}
+                />
+              </div>
+            </motion.div>
+          </div>
+          {categories.map((category, i) => (
             <div className="h-fit overflow-hidden">
               <motion.h2
-                key={item.id}
+                key={category.id}
                 variants={textSlideAnimation}
                 initial="initial"
                 animate="animate"
                 exit="exit"
                 custom={i}
                 onClick={() => {
-                  setSelectedMenu(item.id);
+                  setSelectedFilter((prev) => ({
+                    ...prev,
+                    category,
+                  }));
+                  setSelectedShoe(null);
+                  setSelectedMenu("shop");
                   setMenuModal(false);
+                  scrollTo({ top: 0, behavior: "smooth" });
                 }}
                 className={`font-semibold uppercase overflow-hidden`}
               >
-                <TextSlide
-                  key={i}
-                  text={item.label}
-                  spanClass={
-                    selectedMenu === item.id
-                      ? "text-t/100 text-[52px]"
-                      : "text-t/50 text-[52px]"
-                  }
-                  customHeight="!h-[62px]"
-                />
+                <div className="" key={i}>
+                  <TextSlide
+                    key={i}
+                    text={category}
+                    spanClass={
+                      !indexMenu && selectedFilter.category === category
+                        ? "text-t/100 text-[52px]"
+                        : "text-t/50 text-[52px]"
+                    }
+                    customHeight="!h-[62px]"
+                  />
+                </div>
               </motion.h2>
             </div>
           ))}

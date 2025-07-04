@@ -13,7 +13,7 @@ export const useFilterStore = create((set) => ({
 }));
 
 export const useMenuStore = create((set) => ({
-  selectedMenu: "shop",
+  selectedMenu: "index",
   setSelectedMenu: (menu) => set({ selectedMenu: menu }),
 }));
 

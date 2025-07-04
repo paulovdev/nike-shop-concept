@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className=" flex items-center justify-between w-full px-5 bg-s z-50 select-none">
+    <footer className="relative w-full p-3 flex items-center justify-between px-5 bg-s border-t !border-bb  z-50 select-none">
       <p className="text-t text-[10px] font-medium uppercase">
         © 2025 Nike, Inc. All Rights Reserved
       </p>

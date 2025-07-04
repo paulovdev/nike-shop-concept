@@ -22,7 +22,7 @@ export const clipImageAnimation = {
       duration: 0.75,
       type: "tween",
       ease: [0.76, 0, 0.24, 1],
-      delay: 0.05,
+      delay: 0.08,
     },
   },
   exit: {
