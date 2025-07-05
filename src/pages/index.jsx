@@ -13,7 +13,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import ShopShoeDetail from "@/components/shop-shoe-detail/shop-shoe-detail";
 import Contact from "@/components/nav/menu/contact";
-import Footer from "../../public/footer/footer";
+import Footer from "../components/footer/footer";
 import ShoesPhotosDetailMobile from "@/components/shop-photos-detail/shop-photos-detail-mobile";
 import Index from "@/components/index";
 import PromoNav from "@/components/nav/promo-nav/promo-nav";

@@ -39,8 +39,10 @@ const Shop = () => {
     );
   }
 
-  if (selectedFilter?.item) {
-    filtered = filtered.filter((item) => item.category === selectedFilter.item);
+  if (selectedFilter?.category) {
+    filtered = filtered.filter(
+      (category) => category.category === selectedFilter.category
+    );
   }
 
   if (selectedFilter?.order === "asc") {
@@ -76,17 +78,17 @@ const Shop = () => {
           </motion.figure>
         </div>
 
-        <div className="sticky top-[80px] p-5 mb-8 w-full h-[50px] border-t !border-bb   bg-s flex items-center justify-between z-50 select-none ">
+        <div className="py-15 px-5 w-full h-[50px] bg-s flex items-center justify-between select-none ">
           <div className="h-fit overflow-hidden">
             <motion.h2
-              className="text-[28px] text-t font-bold uppercase flex items-center gap-2
-              max-md:text-[16px]"
+              className="text-[42px] text-t font-bold uppercase flex items-center gap-2
+              max-md:text-[28px]"
               variants={textSlideSingleAnimation}
               initial="initial"
               animate="animate"
               custom={0.05}
             >
-              {selectedFilter?.item || "All"}
+              {selectedFilter?.category || "All"}
               <span className="relative text-[12px] top-1">
                 ({filtered.length})
               </span>
@@ -159,23 +161,31 @@ const Shop = () => {
             </div>
           </div>
         </div>
+        <div className=" px-5">
+          <p className="text-[14px] text-t/75 font-semibold">
+            Football boots, running shoes, leather sneakers, everyday sneakers
+            and shoes, here you will find all the Adidas footwear collections.
+            Choose yours
+          </p>
+        </div>
+        <div className="my-5 w-full h-0.5 bg-bb"></div>
 
         <div
-          className="size-full px-5 py-5 grid grid-cols-3 gap-4 max-lg:grid-cols-2"
+          className="size-full px-5 py-5 grid grid-cols-4 gap-4 max-lg:grid-cols-2"
           key={`${selectedFilter?.order}-${selectedFilter?.category}-${searchQuery}`}
           onMouseLeave={() => setHoveredShoeId(null)}
         >
           {filtered.map((item) => (
             <div
               key={item.id}
-              className="relative w-full p-2 select-none group"
+              className="relative size-full flex flex-col items-start justify-start select-none group"
               onMouseEnter={() => setHoveredShoeId(item.id)}
               onClick={() => {
                 setSelectedShoe(item);
                 scrollTo({ top: 0 });
               }}
             >
-              <AnimatePresence>
+              {/*   <AnimatePresence>
                 {hoveredShoeId === item.id && (
                   <motion.div
                     layoutId="highlight-box"
@@ -200,21 +210,19 @@ const Shop = () => {
                     style={{ padding: "2rem" }}
                   />
                 )}
-              </AnimatePresence>
-              <div className="">
-                <motion.figure
-                  className="relative w-full aspect-[4/3] mb-2 z-10 "
-                  layoutId={`shoe-image-${item.id}`}
-                >
-                  <Image
-                    src={item.img}
-                    fill
-                    alt={item.title}
-                    className="object-contain pointer-events-none"
-                  />
-                </motion.figure>
-              </div>
-              <div className="h-fit flex flex-col items-start justify-end">
+              </AnimatePresence> */}
+
+              <motion.figure className="relative mb-4 z-10">
+                <Image
+                  src={item.img}
+                  width={500}
+                  height={500}
+                  alt={item.title}
+                  className="h-[350px] object-cover pointer-events-none"
+                />
+              </motion.figure>
+
+              <div className="h-full flex flex-col items-start justify-end">
                 <div className="mb-1 h-fit overflow-hidden relative z-10">
                   <motion.p
                     className="text-[8px] text-t/75 font-azeret font-bold uppercase tracking-[1px]"
@@ -248,7 +256,7 @@ const Shop = () => {
                     exit="exit"
                     custom={0.05}
                   >
-                    {item.subcategory}
+                    {item.subCategory}
                   </motion.h2>
                 </div>
                 <div className="mb-1 h-fit overflow-hidden relative z-10">

@@ -1,25 +1,8 @@
 const data = [
-  // Original 6 produtos mantidos
-  {
-    id: 0,
-    img: "/shoes/bicudo/bicudo.png",
-    imgDetails: [
-      "/shoes/bicudo/bicudo.png",
-      "/shoes/bicudo/bicudo.png",
-      "/shoes/bicudo/bicudo.png",
-    ],
-    underTitle: "pointed",
-    title: "white pointed shoe",
-    price: "$999.9999.999.9999.99999.9999.9999",
-    description: "White pointed shoes, the best in the entire store",
-    category: "shoes",
-    subcategory: "sneakers",
-  },
   {
     id: 1,
-    img: "/shoes/nike-air-force-1/nike-air-force-1.png",
+    img: "/shoes/nike-air-force-1/nike-air-force-1.avif",
     imgDetails: [
-      "/shoes/nike-air-force-1/nike-air-force-single-1.avif",
       "/shoes/nike-air-force-1/nike-air-force-single-2.avif",
       "/shoes/nike-air-force-1/nike-air-force-single-3.avif",
       "/shoes/nike-air-force-1/nike-air-force-single-4.avif",
@@ -35,13 +18,13 @@ const data = [
     description:
       "Timeless style and comfort with premium leather and iconic cushioning.",
     category: "shoes",
-    subcategory: "sneakers",
+    subCategory: "sneakers",
+    gender: "men",
   },
   {
     id: 2,
     img: "/shoes/nike-dunk-triple/nike-dunk-triple.png",
     imgDetails: [
-      "/shoes/nike-dunk-triple/nike-dunk-triple-single-1.webp",
       "/shoes/nike-dunk-triple/nike-dunk-triple-single-2.webp",
       "/shoes/nike-dunk-triple/nike-dunk-triple-single-3.webp",
       "/shoes/nike-dunk-triple/nike-dunk-triple-single-4.webp",
@@ -53,33 +36,33 @@ const data = [
     price: "$110.00",
     description: "Retro basketball DNA for streetwear lovers.",
     category: "shoes",
-    subcategory: "casual",
+    subCategory: "casual",
+    gender: "men",
   },
   {
     id: 3,
-    img: "/shoes/nike-air-max-95/nike-air-max-95.png",
+    img: "/shoes/nike-air-max-95-og/nike-air-max-95-og.avif",
     imgDetails: [
-      "/shoes/nike-air-max-95/nike-air-max-95-single-1.webp",
-      "/shoes/nike-air-max-95/nike-air-max-95-single-2.webp",
-      "/shoes/nike-air-max-95/nike-air-max-95-single-3.webp",
-      "/shoes/nike-air-max-95/nike-air-max-95-single-4.webp",
-      "/shoes/nike-air-max-95/nike-air-max-95-single-5.webp",
-      "/shoes/nike-air-max-95/nike-air-max-95-single-6.webp",
-      "/shoes/nike-air-max-95/nike-air-max-95-single-7.webp",
-      "/shoes/nike-air-max-95/nike-air-max-95-single-8.webp",
+      "/shoes/nike-air-max-95-og/nike-air-max-95-og-single-2.avif",
+      "/shoes/nike-air-max-95-og/nike-air-max-95-og-single-3.avif",
+      "/shoes/nike-air-max-95-og/nike-air-max-95-og-single-4.avif",
+      "/shoes/nike-air-max-95-og/nike-air-max-95-og-single-5.avif",
+      "/shoes/nike-air-max-95-og/nike-air-max-95-og-single-6.avif",
+      "/shoes/nike-air-max-95-og/nike-air-max-95-og-single-7.avif",
+      "/shoes/nike-air-max-95-og/nike-air-max-95-og-single-8.avif",
     ],
     underTitle: "Nike",
-    title: "AIR MAX 95 ESSENTIAL",
-    price: "$105.00",
+    title: "Nike Air Max 95 OG",
+    price: "$190",
     description: "Inspired by the human body with bold style.",
     category: "shoes",
-    subcategory: "running",
+    subCategory: "running",
+    gender: "men",
   },
   {
     id: 4,
-    img: "/shoes/nike-vomero/nike-vomero.png",
+    img: "/shoes/nike-vomero/nike-vomero.avif",
     imgDetails: [
-      "/shoes/nike-vomero/nike-vomero-single-1.avif",
       "/shoes/nike-vomero/nike-vomero-single-2.avif",
       "/shoes/nike-vomero/nike-vomero-single-3.avif",
       "/shoes/nike-vomero/nike-vomero-single-4.avif",
@@ -93,7 +76,8 @@ const data = [
     price: "$158.00",
     description: "Long-distance running comfort and cushioning.",
     category: "shoes",
-    subcategory: "running",
+    subCategory: "running",
+    gender: "men",
   },
   {
     id: 5,
@@ -109,6 +93,7 @@ const data = [
     price: "$200.75",
     description: "Long-distance running comfort and cushioning.",
     category: "clothing",
+    gender: "men",
   },
   {
     id: 6,
@@ -124,6 +109,7 @@ const data = [
     description:
       "NOCTA is back. Dropped shoulders, longer sleeves, and a loose fit through the body and hips give the Max90 tee a relaxed, casual look.",
     category: "clothing",
+    gender: "men",
   },
 
   // ======================
@@ -132,7 +118,7 @@ const data = [
 
   ...Array.from({ length: 18 }, (_, i) => ({
     id: 7 + i,
-    img: "/shoes/nike-air-force-1/nike-air-force-1.png",
+    img: "/shoes/nike-air-force-1/nike-air-force-1.avif",
     imgDetails: [
       "/shoes/nike-air-force-1/nike-air-force-single-1.avif",
       "/shoes/nike-air-force-1/nike-air-force-single-2.avif",
@@ -142,7 +128,7 @@ const data = [
     price: `$${90 + i * 5}.00`,
     description: "Limited edition drop from Nike.",
     category: "shoes",
-    subcategory: i % 2 === 0 ? "sneakers" : "running",
+    subCategory: i % 2 === 0 ? "sneakers" : "running",
   })),
 
   ...Array.from({ length: 8 }, (_, i) => ({
@@ -157,6 +143,7 @@ const data = [
     price: `$${180 + i * 6}.00`,
     description: "Premium collab piece with urban style.",
     category: "clothing",
+    subCategory: "asd",
   })),
 ];
 

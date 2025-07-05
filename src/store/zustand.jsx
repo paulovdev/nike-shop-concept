@@ -2,7 +2,8 @@ import { create } from "zustand";
 
 export const useFilterStore = create((set) => ({
   selectedFilter: {
-    category: "shoes",
+    title: "",
+    category: "",
     order: "asc",
   },
   setSelectedFilter: (update) =>

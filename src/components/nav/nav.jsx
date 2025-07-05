@@ -118,7 +118,7 @@ const Nav = ({ setMenuModal, setCartModal }) => {
                 <div className="h-[50px] flex items-center overflow-hidden">
                   <div className="h-fit overflow-hidden">
                     <motion.div
-                      className=" flex items-center "
+                      className=" flex items-center"
                       variants={slideUpAnimation}
                       initial="initial"
                       animate="animate"
@@ -129,7 +129,7 @@ const Nav = ({ setMenuModal, setCartModal }) => {
                         <div
                           key={i}
                           onMouseEnter={() => setHoveredCategory(category)}
-                          onClick={() => {
+                        /*   onClick={() => {
                             setSelectedFilter((prev) => ({
                               ...prev,
                               category: category.title,
@@ -137,8 +137,10 @@ const Nav = ({ setMenuModal, setCartModal }) => {
                             setSelectedShoe(null);
                             setSelectedMenu("shop");
                             scrollingShopToTop();
-                          }}
-                          className="px-5"
+                          }} */
+                          className={`${i === 0 && "pl-10"} ${
+                            i === megaMenuCategories.length - 1 && "pr-10"
+                          } px-5`}
                         >
                           <TextSlide
                             text={category.title}

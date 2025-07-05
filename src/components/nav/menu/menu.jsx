@@ -6,15 +6,23 @@ import TextSlide from "@/components/reusable/text-slide";
 import { SiNike } from "react-icons/si";
 import { megaMenuCategories } from "@/data/filterData";
 import { useState } from "react";
+import { MdKeyboardReturn } from "react-icons/md";
 
 const Menu = ({ menuModal, setMenuModal }) => {
   const { setSelectedShoe } = useShoeStore();
   const { setSelectedMenu, selectedMenu } = useMenuStore();
   const { setSelectedFilter, selectedFilter } = useFilterStore();
 
-  const categories = ["shoes", "clothing", "accessories", "sports", "limited"];
   const indexMenu = selectedMenu === "index";
-  const [activeCategory, setActiveCategory] = useState(null); // 👈 novo estado
+  const [activeCategory, setActiveCategory] = useState(() => {
+    return (
+      megaMenuCategories.find((category) =>
+        category.categories.includes(selectedFilter.category)
+      ) || null
+    );
+  });
+
+  console.log(selectedFilter);
 
   return (
     <div
@@ -69,7 +77,7 @@ const Menu = ({ menuModal, setMenuModal }) => {
             </div>
 
             {!activeCategory &&
-              megaMenuCategories.map((category, i) => (
+              megaMenuCategories.map((title, i) => (
                 <div className="h-fit overflow-hidden" key={i}>
                   <motion.h2
                     variants={textSlideAnimation}
@@ -77,14 +85,20 @@ const Menu = ({ menuModal, setMenuModal }) => {
                     animate="animate"
                     exit="exit"
                     custom={i}
-                    onClick={() => setActiveCategory(category)}
+                    onClick={() => {
+                      setActiveCategory(title);
+                      setSelectedFilter((prev) => ({
+                        ...prev,
+                        title: title.title,
+                      }));
+                    }}
                     className={`font-semibold uppercase overflow-hidden`}
                   >
                     <div className="">
                       <TextSlide
-                        text={category.title}
+                        text={title.title}
                         spanClass={
-                          !indexMenu && selectedFilter.item === category.title
+                          !indexMenu && selectedFilter.title === title.title
                             ? "text-t/100 text-[52px]"
                             : "text-t/50 text-[52px]"
                         }
@@ -97,7 +111,7 @@ const Menu = ({ menuModal, setMenuModal }) => {
 
             {activeCategory && (
               <>
-                <div className="h-fit overflow-hidden">
+                <div className="mt-8 mb-8 h-fit overflow-hidden">
                   <motion.h2
                     variants={textSlideAnimation}
                     initial="initial"
@@ -107,17 +121,22 @@ const Menu = ({ menuModal, setMenuModal }) => {
                     onClick={() => setActiveCategory(null)}
                     className={`font-semibold uppercase overflow-hidden`}
                   >
-                    <div className="">
+                    <div className="flex items-center gap-2">
+                      <MdKeyboardReturn
+                        size={24}
+                        className="text-t pointer-events-auto"
+                      />
+
                       <TextSlide
                         text="BACK"
-                        spanClass="text-t/50 text-[22px]"
+                        spanClass="text-t text-[16px]"
                         customHeight="!h-[24px]"
                       />
                     </div>
                   </motion.h2>
                 </div>
 
-                {activeCategory.items.map((item, i) => (
+                {activeCategory.categories.map((category, i) => (
                   <div className="h-fit overflow-hidden" key={i}>
                     <motion.h2
                       variants={textSlideAnimation}
@@ -128,7 +147,7 @@ const Menu = ({ menuModal, setMenuModal }) => {
                       onClick={() => {
                         setSelectedFilter((prev) => ({
                           ...prev,
-                          item,
+                          category: category,
                         }));
                         setSelectedShoe(null);
                         setSelectedMenu("shop");
@@ -139,9 +158,9 @@ const Menu = ({ menuModal, setMenuModal }) => {
                     >
                       <div className="">
                         <TextSlide
-                          text={item}
+                          text={category}
                           spanClass={
-                            !indexMenu && selectedFilter.item === item
+                            !indexMenu && selectedFilter.category === category
                               ? "text-t/100 text-[52px]"
                               : "text-t/50 text-[52px]"
                           }

@@ -8,7 +8,7 @@ const ShoesPhotosDetail = () => {
   const { selectedShoe } = useShoeStore();
 
   return (
-    <div className="size-full flex items-center justify-center bg-t">
+    <div className="w-[calc(100%_+_1px)] h-full flex items-center justify-center bg-t">
       <div className="absolute z-10 mix-blend-exclusion pointer-events-none">
         <h1 className="text-p text-[64px] font-bold italic ">NIKE</h1>
       </div>

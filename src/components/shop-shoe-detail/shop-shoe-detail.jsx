@@ -2,7 +2,12 @@
 import { useShoeStore, useCartStore } from "@/store/zustand";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { slideUpNoOpacityAnimation, slideUpWExitAnimation } from "./animations";
+import {
+  clipAnimation,
+  opacityAnimation,
+  slideUpNoOpacityAnimation,
+  slideUpWExitAnimation,
+} from "./animations";
 import { TbRulerMeasure } from "react-icons/tb";
 
 import { ShoppingCart, X } from "lucide-react";
@@ -59,22 +64,28 @@ const ShopShoeDetail = () => {
     <>
       <motion.div
         className="size-full flex flex-col max-lg:overflow-y-visible"
+        variants={opacityAnimation}
+        initial="initial"
+        animate="animate"
+        exit="exit"
         key={`${selectedShoe}`}
       >
-        <motion.div className="size-full p-5 py-10 border-b border-bb flex flex-col items-center justify-center">
-          <div className="w-[300px] h-[250px] flex items-center justify-center select-none">
-            <motion.figure
-              className="relative w-full flex items-center justify-center aspect-[4/3] "
-              layoutId={`shoe-image-${selectedShoe.id}`}
-            >
-              <Image
-                src={selectedShoe.img}
-                fill
-                alt={selectedShoe.title}
-                className="object-contain pointer-events-none"
-              />
-            </motion.figure>
-          </div>
+        <motion.div className="size-full border-b border-bb">
+          <motion.figure
+            className="w-full h-[325px] flex items-center justify-center"
+            variants={clipAnimation}
+            initial="initial"
+            animate="animate"
+            custom={0.2}
+          >
+            <Image
+              src={selectedShoe.img}
+              width={1000}
+              height={1000}
+              alt={selectedShoe.title}
+              className="object-cover pointer-events-none"
+            />
+          </motion.figure>
         </motion.div>
 
         <div className="relative px-5 flex flex-col items-start justify-between max-md:flex-col bg-s z-10">
