@@ -16,11 +16,9 @@ import { useState } from "react";
 const Nav = ({ setMenuModal, setCartModal }) => {
   const { cart } = useCartStore();
   const { setSelectedShoe, selectedShoe } = useShoeStore();
-  const { setSelectedMenu, selectedMenu } = useMenuStore();
-  const { setSelectedFilter, selectedFilter } = useFilterStore();
+  const { setSelectedMenu } = useMenuStore();
   const [hoveredCategory, setHoveredCategory] = useState(null);
-
-  const indexMenu = selectedMenu === "index";
+  const { setSelectedFilter, selectedFilter } = useFilterStore();
   const shoeDetails = selectedShoe === null;
 
   const scrollingShopToTop = () => {
@@ -28,11 +26,9 @@ const Nav = ({ setMenuModal, setCartModal }) => {
     scrollContainer?.scrollTo({ top: 0 });
   };
 
-  console.log(hoveredCategory);
-
   return (
     <>
-      <nav className="h-[50px] flex items-center justify-between w-full px-5 bg-s shadow-[0_8px_30px_rgb(0,0,0,0.07)] z-50 select-none">
+      <nav className="h-[50px] flex items-center justify-between w-full px-5 bg-s z-50 select-none">
         <div className="w-full flex items-center justify-between">
           {/* NIKE LOGO & HAMBURGUER MENU */}
           <div className="relative w-full flex items-center justify-start pointer-events-none">
@@ -41,7 +37,7 @@ const Nav = ({ setMenuModal, setCartModal }) => {
               {selectedShoe === null && (
                 <>
                   <div
-                    className="absolute h-fit overflow-hidden max-lg:block hidden  pointer-events-auto"
+                    className="absolute h-[30px] items-center overflow-hidden max-lg:flex hidden  pointer-events-auto"
                     onClick={() => setMenuModal(true)}
                   >
                     <motion.div
@@ -129,28 +125,40 @@ const Nav = ({ setMenuModal, setCartModal }) => {
                         <div
                           key={i}
                           onMouseEnter={() => setHoveredCategory(category)}
-                        /*   onClick={() => {
-                            setSelectedFilter((prev) => ({
-                              ...prev,
-                              category: category.title,
-                            }));
+                          onClick={() => {
+                            const gender = category.title.toLowerCase();
+                            const firstSectionKey = [
+                              "shoes",
+                              "clothing",
+                              "accessories",
+                            ].find(
+                              (key) => category[key] && category[key].length > 0
+                            );
+
+                            const firstCategoryItem = firstSectionKey
+                              ? category[firstSectionKey][0]
+                              : null;
+
+                            setSelectedFilter({
+                              title: category.title,
+                              gender: gender,
+                              category: firstSectionKey || "",
+                              subCategory: firstCategoryItem || "",
+                              order: "",
+                            });
+
                             setSelectedShoe(null);
                             setSelectedMenu("shop");
                             scrollingShopToTop();
-                          }} */
+                            setHoveredCategory(null);
+                          }}
                           className={`${i === 0 && "pl-10"} ${
                             i === megaMenuCategories.length - 1 && "pr-10"
-                          } px-5`}
+                          } px-5 cursor-pointer select-none`}
                         >
                           <TextSlide
                             text={category.title}
                             spanClass="text-[14px]"
-                            /*  spanClass={
-                            !indexMenu &&
-                            selectedFilter.category === category.title
-                              ? "text-t/100 text-[14px]"
-                              : "text-t/50 text-[14px]"
-                          } */
                             customHeight="h-[21px]"
                           />
                         </div>

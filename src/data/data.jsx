@@ -18,7 +18,7 @@ const data = [
     description:
       "Timeless style and comfort with premium leather and iconic cushioning.",
     category: "shoes",
-    subCategory: "sneakers",
+    subCategory: "Basketball",
     gender: "men",
   },
   {
@@ -36,7 +36,7 @@ const data = [
     price: "$110.00",
     description: "Retro basketball DNA for streetwear lovers.",
     category: "shoes",
-    subCategory: "casual",
+    subCategory: "Basketball",
     gender: "men",
   },
   {
@@ -56,7 +56,7 @@ const data = [
     price: "$190",
     description: "Inspired by the human body with bold style.",
     category: "shoes",
-    subCategory: "running",
+    subCategory: "Running",
     gender: "men",
   },
   {
@@ -76,7 +76,7 @@ const data = [
     price: "$158.00",
     description: "Long-distance running comfort and cushioning.",
     category: "shoes",
-    subCategory: "running",
+    subCategory: "Running",
     gender: "men",
   },
   {
@@ -93,6 +93,7 @@ const data = [
     price: "$200.75",
     description: "Long-distance running comfort and cushioning.",
     category: "clothing",
+    subCategory: "Jackets & Vests",
     gender: "men",
   },
   {
@@ -106,45 +107,101 @@ const data = [
     underTitle: "Nike X Nocta",
     title: "Nocta T-shirt",
     price: "$76.65",
-    description:
-      "NOCTA is back. Dropped shoulders, longer sleeves, and a loose fit through the body and hips give the Max90 tee a relaxed, casual look.",
+    description: "Relaxed casual look with dropped shoulders and loose fit.",
     category: "clothing",
+    subCategory: "Tops & Tees",
     gender: "men",
   },
-
-  // ======================
-  // Itens adicionais abaixo
-  // ======================
-
-  ...Array.from({ length: 18 }, (_, i) => ({
-    id: 7 + i,
-    img: "/shoes/nike-air-force-1/nike-air-force-1.avif",
+  {
+    id: 7,
+    img: "/shoes/womens-runner/womens-runner.avif",
     imgDetails: [
-      "/shoes/nike-air-force-1/nike-air-force-single-1.avif",
-      "/shoes/nike-air-force-1/nike-air-force-single-2.avif",
+      "/shoes/womens-runner/womens-runner-single-1.avif",
+      "/shoes/womens-runner/womens-runner-single-2.avif",
     ],
     underTitle: "Nike",
-    title: `Custom AIR FORCE ${i + 2}`,
-    price: `$${90 + i * 5}.00`,
-    description: "Limited edition drop from Nike.",
+    title: "Women's Runner",
+    price: "$120.00",
+    description: "Comfort and style for women runners.",
     category: "shoes",
-    subCategory: i % 2 === 0 ? "sneakers" : "running",
-  })),
-
-  ...Array.from({ length: 8 }, (_, i) => ({
-    id: 15 + i,
-    img: "/clothing/nike-x-stussy/nike-x-stussy-jc.png",
+    subCategory: "Running",
+    gender: "women",
+  },
+  {
+    id: 8,
+    img: "/clothing/womens-jacket/womens-jacket.png",
     imgDetails: [
-      "/clothing/nike-x-stussy/nike-x-stussy-single-1.avif",
-      "/clothing/nike-x-stussy/nike-x-stussy-single-2.avif",
+      "/clothing/womens-jacket/womens-jacket-single-1.webp",
+      "/clothing/womens-jacket/womens-jacket-single-2.webp",
     ],
-    underTitle: "Nike x Stüssy",
-    title: `Wool Jacket Edition ${i + 1}`,
-    price: `$${180 + i * 6}.00`,
-    description: "Premium collab piece with urban style.",
+    underTitle: "Nike",
+    title: "Women's Hoodie",
+    price: "$80.00",
+    description: "Cozy hoodies for everyday wear.",
     category: "clothing",
-    subCategory: "asd",
-  })),
+    subCategory: "Hoodies",
+    gender: "women",
+  },
+  {
+    id: 9,
+    img: "/accessories/womens-bag/womens-bag.png",
+    imgDetails: [
+      "/accessories/womens-bag/womens-bag-single-1.webp",
+      "/accessories/womens-bag/womens-bag-single-2.webp",
+    ],
+    underTitle: "Nike",
+    title: "Women's Bag",
+    price: "$45.00",
+    description: "Practical and stylish backpacks for women.",
+    category: "accessories",
+    subCategory: "Bags",
+    gender: "women",
+  },
+  {
+    id: 10,
+    img: "/shoes/kids-sneaker/kids-sneaker.avif",
+    imgDetails: [
+      "/shoes/kids-sneaker/kids-sneaker-single-1.avif",
+      "/shoes/kids-sneaker/kids-sneaker-single-2.avif",
+    ],
+    underTitle: "Nike",
+    title: "Kids Sneaker",
+    price: "$60.00",
+    description: "Sneakers for active kids.",
+    category: "shoes",
+    subCategory: "Preschool",
+    gender: "kids",
+  },
+  {
+    id: 11,
+    img: "/clothing/kids-hoodie/kids-hoodie.png",
+    imgDetails: [
+      "/clothing/kids-hoodie/kids-hoodie-single-1.webp",
+      "/clothing/kids-hoodie/kids-hoodie-single-2.webp",
+    ],
+    underTitle: "Nike",
+    title: "Kids Hoodie",
+    price: "$40.00",
+    description: "Comfortable hoodies for kids.",
+    category: "clothing",
+    subCategory: "Hoodies",
+    gender: "kids",
+  },
+  {
+    id: 12,
+    img: "/accessories/kids-backpack/kids-backpack.png",
+    imgDetails: [
+      "/accessories/kids-backpack/kids-backpack-single-1.webp",
+      "/accessories/kids-backpack/kids-backpack-single-2.webp",
+    ],
+    underTitle: "Nike",
+    title: "Kids Backpack",
+    price: "$30.00",
+    description: "Durable backpacks for school.",
+    category: "accessories",
+    subCategory: "Backpacks",
+    gender: "kids",
+  },
 ];
 
 export default data;

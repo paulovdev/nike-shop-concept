@@ -104,7 +104,7 @@ const ShopShoeDetail = () => {
             </div>
             <div className="mb-1 h-fit overflow-hidden">
               <motion.h2
-                className="text-[32px] text-t font-bold uppercase"
+                className="text-[32px] text-t font-bold"
                 variants={slideUpWExitAnimation}
                 initial="initial"
                 animate="animate"
@@ -129,7 +129,7 @@ const ShopShoeDetail = () => {
             </div>
             <div className="mb-12 h-[24px] overflow-hidden">
               <motion.p
-                className="text-[18px] text-t font-bold uppercase mb-8"
+                className="text-[14px] text-t font-bold mb-8"
                 variants={slideUpWExitAnimation}
                 initial="initial"
                 animate="animate"
@@ -142,17 +142,15 @@ const ShopShoeDetail = () => {
 
             <div className="w-full mb-4 h-fit overflow-hidden">
               <motion.p
-                className="w-full text-[12px] text-t font-semibold uppercase flex justify-between items-center"
+                className="w-full text-[16px] text-t font-bold flex justify-between items-center"
                 variants={slideUpWExitAnimation}
                 initial="initial"
                 animate="animate"
                 exit="exit"
                 custom={0.1}
               >
-                <div className="w-full flex items-center gap-2  ">
-                  <span className="w-[5px] h-[5px] bg-t" />
-                  Select size
-                </div>
+                <div className="w-full">Select size</div>
+
                 <div className="w-full flex items-center justify-end gap-2">
                   <TbRulerMeasure size={16} className="text-t" />
                   Size Guide
@@ -183,7 +181,7 @@ const ShopShoeDetail = () => {
                       custom={i}
                     >
                       <p
-                        className={`text-[10px] font-bold uppercase ${
+                        className={`text-[12px] font-bold ${
                           isActive ? "text-p" : "text-f"
                         } group-hover:text-p transition-all duration-200`}
                       >
@@ -210,29 +208,25 @@ const ShopShoeDetail = () => {
                       if (!selectedSize || alreadyInCart) return;
                       addToCart({ ...selectedShoe, size: selectedSize });
                     }}
-                    className={`w-full h-[40px] px-6 py-2 bg-f border flex items-center justify-center gap-2 group transition-all duration-200 ${
+                    className={`w-full h-[50px] px-6 py-2 bg-f border flex items-center justify-center gap-2 group transition-all duration-200 ${
                       alreadyInCart || !selectedSize
                         ? "opacity-75 pointer-events-none"
                         : "hover:bg-p hover:border-bb"
                     }`}
                   >
-                    <ShoppingCart
-                      size={16}
-                      className="text-p group-hover:text-f transition-all duration-200"
-                    />
-                    <p className="text-p text-[10px] font-bold uppercase group-hover:text-f transition-all duration-200">
+                    <p className="text-p text-[14px] font-semibold group-hover:text-f transition-all duration-200">
                       {alreadyInCart
-                        ? "on the cart"
+                        ? "On the bag"
                         : !selectedSize
                         ? "Select a size"
-                        : "Add to cart"}
+                        : "Add to bag"}
                     </p>
                   </div>
                 </motion.div>
               </div>
               {alreadyInCart && (
                 <div
-                  className="w-[50px] h-[40px] bg-p border-bb border flex items-center justify-center gap-2 group transition-all duration-200 
+                  className="w-[50px] h-[50px] bg-p border-bb border flex items-center justify-center gap-2 group transition-all duration-200 
                 hover:bg-f hover:border-transparent"
                   onClick={() => removeFromCart(selectedShoe.id)}
                 >
@@ -248,38 +242,38 @@ const ShopShoeDetail = () => {
           <div className="pt-6 flex flex-col h-full pr-2 max-md:px-0">
             <div className="mb-2 h-fit overflow-hidden">
               <motion.p
-                className="text-[12px] text-t font-semibold uppercase flex items-center gap-2"
+                className="w-full text-[16px] text-t font-bold"
                 variants={slideUpWExitAnimation}
                 initial="initial"
                 animate="animate"
                 exit="exit"
                 custom={0.1}
               >
-                <span className="w-[5px] h-[5px] bg-t" /> PRODUCT DETAILS
+                Product Details
               </motion.p>
             </div>
             <div className="mb-1 h-fit overflow-hidden">
               <motion.p
-                className="text-[12px] text-t/75 font-semibold uppercase  flex items-center gap-2"
+                className="text-[14px] text-t/75 font-semibold  flex items-center gap-2"
                 variants={slideUpWExitAnimation}
                 initial="initial"
                 animate="animate"
                 exit="exit"
                 custom={0.1}
               >
-                COLOR: <span className="text-t font-bold"> BLACK</span>
+                Color: <span className="text-t font-bold"> BLACK</span>
               </motion.p>
             </div>
             <div className="mb-1 h-fit overflow-hidden">
               <motion.p
-                className="text-[12px] text-t/75 font-semibold uppercase  flex items-center gap-2"
+                className="text-[14px] text-t/75 font-semibold  flex items-center gap-2"
                 variants={slideUpWExitAnimation}
                 initial="initial"
                 animate="animate"
                 exit="exit"
                 custom={0.1}
               >
-                SIZE:
+                Size:
                 <span className="text-t font-bold">
                   {selectedSize || "None"}
                 </span>
@@ -287,41 +281,40 @@ const ShopShoeDetail = () => {
             </div>
             <div className="mb-1 h-fit overflow-hidden">
               <motion.p
-                className="text-[12px] text-t/75 font-semibold uppercase  flex items-center gap-2"
+                className="text-[14px] text-t/75 font-semibold  flex items-center gap-2"
                 variants={slideUpWExitAnimation}
                 initial="initial"
                 animate="animate"
                 exit="exit"
                 custom={0.1}
               >
-                STYLE: <span className="text-t font-bold">FJ2568-002</span>
+                Style: <span className="text-t font-bold">FJ2568-002</span>
               </motion.p>
             </div>
             <div className="mb-[75px] h-fit overflow-hidden">
               <motion.p
-                className="text-[12px] text-t/75 font-semibold uppercase flex items-center gap-2"
+                className="text-[14px] text-t/75 font-semibold flex items-center gap-2"
                 variants={slideUpWExitAnimation}
                 initial="initial"
                 animate="animate"
                 exit="exit"
                 custom={0.1}
               >
-                Recommended for:
-                <span className="text-t font-bold"> Everyday</span>
+                Recommended For:
+                <span className="text-t font-bold"> EVERYDAY</span>
               </motion.p>
             </div>
 
             <div className="mb-2 h-fit overflow-hidden">
               <motion.p
-                className="text-[12px] text-t font-semibold uppercase flex items-center gap-2"
+                className="w-full text-[16px] text-t font-bold"
                 variants={slideUpWExitAnimation}
                 initial="initial"
                 animate="animate"
                 exit="exit"
                 custom={0.1}
               >
-                <span className="w-[5px] h-[5px] bg-t" />
-                more description
+                More Description
               </motion.p>
             </div>
             <div className="mb-[75px] h-fit overflow-hidden">
@@ -343,48 +336,48 @@ const ShopShoeDetail = () => {
             </div>
             <div className="mb-2 h-fit overflow-hidden flex items-center">
               <motion.p
-                className="text-[12px] text-t font-semibold uppercase  flex items-center gap-2"
+                className="text-[16px] text-t font-bold"
                 variants={slideUpWExitAnimation}
                 initial="initial"
                 animate="animate"
                 exit="exit"
                 custom={0.1}
               >
-                <span className="w-[5px] h-[5px] bg-t" /> SHARE
+                Share
               </motion.p>
             </div>
 
             <div className="mb-[75px] h-fit overflow-hidden">
               <motion.p
-                className="text-[12px] text-t uppercase flex items-center gap-2"
+                className=" text-t flex items-center gap-2"
                 variants={slideUpWExitAnimation}
                 initial="initial"
                 animate="animate"
                 exit="exit"
                 custom={0.1}
               >
-                <FaInstagram size={16} className="text-t" />
-                <FaThreads size={16} className="text-t" />
-                <FaWhatsapp size={16} className="text-t" />
-                <FaCopy size={16} className="text-t" />
+                <FaInstagram size={22} className="text-t" />
+                <FaThreads size={22} className="text-t" />
+                <FaWhatsapp size={22} className="text-t" />
+                <FaCopy size={22} className="text-t" />
               </motion.p>
             </div>
 
             <div className="mb-2 h-fit overflow-hidden">
               <motion.p
-                className="text-[12px] text-t font-semibold uppercase flex items-center gap-2"
+                className="text-[16px] text-t font-bold"
                 variants={slideUpWExitAnimation}
                 initial="initial"
                 animate="animate"
                 exit="exit"
                 custom={0.1}
               >
-                <span className="w-[5px] h-[5px] bg-t" /> Shipping
+                Shipping
               </motion.p>
             </div>
             <div className="mb-[75px] h-fit overflow-hidden">
               <motion.p
-                className="text-[12px] text-t/75 font-medium uppercase underline mb-1"
+                className="text-[14px] text-t/75 font-medium underline mb-1"
                 variants={slideUpWExitAnimation}
                 initial="initial"
                 animate="animate"
@@ -396,19 +389,19 @@ const ShopShoeDetail = () => {
             </div>
             <div className="mb-2 h-fit overflow-hidden">
               <motion.p
-                className="text-[12px] text-t font-medium uppercase  flex items-center gap-2"
+                className="text-[16px] text-t font-bold"
                 variants={slideUpWExitAnimation}
                 initial="initial"
                 animate="animate"
                 exit="exit"
                 custom={0.1}
               >
-                <span className="w-[5px] h-[5px] bg-t" /> Free Pickup
+                Free Pickup
               </motion.p>
             </div>
             <div className="h-fit overflow-hidden">
               <motion.p
-                className="text-[12px] text-t/75 font-medium uppercase underline mb-1"
+                className="text-[14px] text-t/75 font-medium underline mb-1"
                 variants={slideUpWExitAnimation}
                 initial="initial"
                 animate="animate"

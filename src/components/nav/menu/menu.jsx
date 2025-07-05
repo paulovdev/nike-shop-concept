@@ -1,28 +1,169 @@
-import { menuAnimation, textSlideAnimation } from "./animations";
-import { X } from "lucide-react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useFilterStore, useMenuStore, useShoeStore } from "@/store/zustand";
-import TextSlide from "@/components/reusable/text-slide";
-import { SiNike } from "react-icons/si";
-import { megaMenuCategories } from "@/data/filterData";
-import { useState } from "react";
+import { X } from "lucide-react";
 import { MdKeyboardReturn } from "react-icons/md";
+import { SiNike } from "react-icons/si";
+import { clipAnimation, menuAnimation, textSlideAnimation } from "./animations";
+import TextSlide from "@/components/reusable/text-slide";
+import { useFilterStore, useMenuStore, useShoeStore } from "@/store/zustand";
+import { megaMenuCategories } from "@/data/filterData";
+
+const MenuRoot = ({ activeCategory, onSelectCategory }) => {
+  return (
+    <>
+      {megaMenuCategories.map((category, i) => {
+        const isActive = activeCategory?.title === category.title;
+        return (
+          <div className="h-fit overflow-hidden" key={category.title}>
+            <motion.h2
+              variants={textSlideAnimation}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              custom={i}
+              onClick={() => onSelectCategory(category)}
+              className={`font-semibold uppercase overflow-hidden cursor-pointer ${
+                isActive ? "text-t/100" : "text-t/50"
+              }`}
+            >
+              <TextSlide
+                text={category.title}
+                spanClass={`text-[52px] ${
+                  isActive ? "text-t/100" : "text-t/50"
+                }`}
+                customHeight="!h-[62px]"
+              />
+            </motion.h2>
+          </div>
+        );
+      })}
+    </>
+  );
+};
+
+const MenuSections = ({ category, activeSection, onSelectSection }) => {
+  return (
+    <>
+      {Object.keys(category.sections || {}).map((sectionKey, i) => {
+        const isActive = activeSection === sectionKey;
+        return (
+          <div className="h-fit overflow-hidden" key={sectionKey}>
+            <motion.h2
+              variants={textSlideAnimation}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              custom={i}
+              onClick={() => onSelectSection(sectionKey)}
+              className={`font-semibold uppercase overflow-hidden cursor-pointer ${
+                isActive ? "text-t/100" : "text-t/50"
+              }`}
+            >
+              <TextSlide
+                text={sectionKey}
+                spanClass={`text-[52px] ${
+                  isActive ? "text-t/100" : "text-t/50"
+                }`}
+                customHeight="!h-[62px]"
+              />
+            </motion.h2>
+          </div>
+        );
+      })}
+    </>
+  );
+};
+
+const MenuSubCategories = ({
+  category,
+  section,
+  activeSubCategory,
+  onSelectSubCategory,
+}) => {
+  const subCategories = category.sections?.[section] || [];
+  return (
+    <>
+      {subCategories.map((subCategory, i) => {
+        const isActive = activeSubCategory === subCategory;
+        return (
+          <div className="h-fit overflow-hidden" key={subCategory}>
+            <motion.h2
+              variants={textSlideAnimation}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              custom={i}
+              onClick={() => onSelectSubCategory(subCategory)}
+              className={`font-semibold uppercase overflow-hidden cursor-pointer ${
+                isActive ? "text-t/100" : "text-t/50"
+              }`}
+            >
+              <TextSlide
+                text={subCategory}
+                spanClass={`text-[52px] ${
+                  isActive ? "text-t/100" : "text-t/50"
+                }`}
+                customHeight="!h-[62px]"
+              />
+            </motion.h2>
+          </div>
+        );
+      })}
+    </>
+  );
+};
 
 const Menu = ({ menuModal, setMenuModal }) => {
   const { setSelectedShoe } = useShoeStore();
   const { setSelectedMenu, selectedMenu } = useMenuStore();
-  const { setSelectedFilter, selectedFilter } = useFilterStore();
+  const { selectedFilter, setSelectedFilter } = useFilterStore();
 
   const indexMenu = selectedMenu === "index";
-  const [activeCategory, setActiveCategory] = useState(() => {
-    return (
-      megaMenuCategories.find((category) =>
-        category.categories.includes(selectedFilter.category)
-      ) || null
-    );
-  });
 
-  console.log(selectedFilter);
+  const [activeCategory, setActiveCategory] = useState(null);
+  const [activeSection, setActiveSection] = useState(null);
+  const [activeSubCategory, setActiveSubCategory] = useState(null);
+
+  useEffect(() => {
+    if (selectedFilter?.gender) {
+      const cat = megaMenuCategories.find(
+        (c) => c.title === selectedFilter.gender
+      );
+      setActiveCategory(cat || null);
+      setActiveSection(selectedFilter.category || null);
+      setActiveSubCategory(selectedFilter.subCategory || null);
+    } else {
+      setActiveCategory(null);
+      setActiveSection(null);
+      setActiveSubCategory(null);
+    }
+  }, [selectedFilter]);
+
+  const goBack = () => {
+    if (activeSection) {
+      setActiveSection(null);
+      setActiveSubCategory(null); // reset subcategoria ao voltar da seção
+    } else if (activeCategory) {
+      setActiveCategory(null);
+      setActiveSection(null);
+      setActiveSubCategory(null); // reset também aqui para garantir
+    }
+  };
+
+  const handleSelectSubCategory = (subCategory) => {
+    setActiveSubCategory(subCategory); // seta ativo aqui!
+    setSelectedFilter({
+      gender: activeCategory.title,
+      category: activeSection,
+      subCategory,
+      order: "asc",
+    });
+    setSelectedShoe(null);
+    setSelectedMenu("shop");
+    setMenuModal(false);
+    scrollTo({ top: 0, behavior: "smooth" });
+    // NÃO zera activeCategory e activeSection aqui para manter estado correto
+  };
 
   return (
     <div
@@ -38,7 +179,7 @@ const Menu = ({ menuModal, setMenuModal }) => {
       >
         <div className="px-5 py-3 flex items-center justify-end">
           <div
-            className="flex items-center gap-2 group"
+            className="flex items-center gap-2 group cursor-pointer"
             onClick={() => setMenuModal(false)}
           >
             <TextSlide text="CLOSE" />
@@ -48,14 +189,17 @@ const Menu = ({ menuModal, setMenuModal }) => {
             />
           </div>
         </div>
+
         <AnimatePresence mode="wait">
           <div
-            className="pt-10 p-10 flex flex-col gap-2 max-md:p-5 max-md:pt-10"
-            key={activeCategory}
+            className="pt-5 p-10 flex flex-col gap-2 max-md:p-5 max-md:pt-10"
+            key={`${activeCategory?.title || "root"}-${
+              activeSection || "none"
+            }`}
           >
-            <div className="h-fit overflow-hidden">
+            <div className="mb-4 h-fit overflow-hidden">
               <motion.div
-                className="w-full flex items-center justify-between gap-4"
+                className="w-full cursor-pointer"
                 variants={textSlideAnimation}
                 initial="initial"
                 animate="animate"
@@ -67,111 +211,78 @@ const Menu = ({ menuModal, setMenuModal }) => {
                   scrollTo({ top: 0 });
                 }}
               >
-                <div className="">
-                  <SiNike
-                    className={indexMenu ? "text-t/100" : "text-t/50"}
-                    size={72}
-                  />
-                </div>
+                <SiNike className={indexMenu ? "text-t" : "text-t"} size={72} />
               </motion.div>
             </div>
+            <div className="mb-4 h-fit overflow-hidden ">
+              {activeCategory && (
+                <motion.h2
+                  variants={textSlideAnimation}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  custom={0}
+                  onClick={goBack}
+                  className="w-full overflow-hidden flex items-center gap-2 cursor-pointer"
+                >
+                  <MdKeyboardReturn size={24} className="text-t" />
+                  <TextSlide
+                    text="BACK"
+                    spanClass="text-t text-[16px]"
+                    customHeight="!h-[24px]"
+                  />
+                </motion.h2>
+              )}
+            </div>
 
-            {!activeCategory &&
-              megaMenuCategories.map((title, i) => (
-                <div className="h-fit overflow-hidden" key={i}>
-                  <motion.h2
-                    variants={textSlideAnimation}
-                    initial="initial"
-                    animate="animate"
-                    exit="exit"
-                    custom={i}
-                    onClick={() => {
-                      setActiveCategory(title);
-                      setSelectedFilter((prev) => ({
-                        ...prev,
-                        title: title.title,
-                      }));
-                    }}
-                    className={`font-semibold uppercase overflow-hidden`}
-                  >
-                    <div className="">
-                      <TextSlide
-                        text={title.title}
-                        spanClass={
-                          !indexMenu && selectedFilter.title === title.title
-                            ? "text-t/100 text-[52px]"
-                            : "text-t/50 text-[52px]"
-                        }
-                        customHeight="!h-[62px]"
-                      />
-                    </div>
-                  </motion.h2>
-                </div>
-              ))}
-
-            {activeCategory && (
-              <>
-                <div className="mt-8 mb-8 h-fit overflow-hidden">
-                  <motion.h2
-                    variants={textSlideAnimation}
-                    initial="initial"
-                    animate="animate"
-                    exit="exit"
-                    custom={0}
-                    onClick={() => setActiveCategory(null)}
-                    className={`font-semibold uppercase overflow-hidden`}
-                  >
-                    <div className="flex items-center gap-2">
-                      <MdKeyboardReturn
-                        size={24}
-                        className="text-t pointer-events-auto"
-                      />
-
-                      <TextSlide
-                        text="BACK"
-                        spanClass="text-t text-[16px]"
-                        customHeight="!h-[24px]"
-                      />
-                    </div>
-                  </motion.h2>
-                </div>
-
-                {activeCategory.categories.map((category, i) => (
-                  <div className="h-fit overflow-hidden" key={i}>
-                    <motion.h2
-                      variants={textSlideAnimation}
-                      initial="initial"
-                      animate="animate"
-                      exit="exit"
-                      custom={i}
-                      onClick={() => {
-                        setSelectedFilter((prev) => ({
-                          ...prev,
-                          category: category,
-                        }));
-                        setSelectedShoe(null);
-                        setSelectedMenu("shop");
-                        setMenuModal(false);
-                        scrollTo({ top: 0, behavior: "smooth" });
-                      }}
-                      className={`font-semibold uppercase overflow-hidden`}
-                    >
-                      <div className="">
-                        <TextSlide
-                          text={category}
-                          spanClass={
-                            !indexMenu && selectedFilter.category === category
-                              ? "text-t/100 text-[52px]"
-                              : "text-t/50 text-[52px]"
-                          }
-                          customHeight="!h-[62px]"
-                        />
-                      </div>
-                    </motion.h2>
-                  </div>
-                ))}
-              </>
+            {!activeCategory && (
+              <MenuRoot
+                activeCategory={activeCategory}
+                onSelectCategory={(cat) => {
+                  setActiveCategory(cat);
+                  setSelectedFilter((prev) => ({
+                    ...prev,
+                    gender: cat.title,
+                  }));
+                }}
+                activeSubCategory={activeSubCategory}
+              />
             )}
+
+            {activeCategory && !activeSection && (
+              <MenuSections
+                category={activeCategory}
+                activeSection={activeSection}
+                onSelectSection={(section) => setActiveSection(section)}
+                activeSubCategory={activeSubCategory}
+              />
+            )}
+
+            {activeCategory && activeSection && (
+              <MenuSubCategories
+                category={activeCategory}
+                section={activeSection}
+                activeSubCategory={activeSubCategory}
+                onSelectSubCategory={handleSelectSubCategory}
+              />
+            )}
+
+            <div className="mt-12">
+              <motion.video
+                variants={clipAnimation}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                custom={0.4}
+                src="/index/welcome.mp4"
+                width={1000}
+                height={1000}
+                alt=""
+                className="h-[275px] object-cover"
+                autoPlay
+                muted
+              />
+            </div>
           </div>
         </AnimatePresence>
 
@@ -188,7 +299,7 @@ const Menu = ({ menuModal, setMenuModal }) => {
       <div className="relative size-full flex-[1.5] max-md:hidden"></div>
 
       <motion.div
-        className="fixed w-screen h-screen inset-0 backdrop-blur-md z-40"
+        className="fixed w-screen h-screen inset-0 backdrop-blur-md z-40 cursor-pointer"
         onClick={() => setMenuModal(false)}
         variants={menuAnimation}
         initial="overlayClosed"

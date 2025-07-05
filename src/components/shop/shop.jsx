@@ -1,7 +1,5 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useShoeStore, useFilterStore } from "@/store/zustand";
-
-import { AnimatePresence } from "framer-motion";
 import { IoFilterSharp } from "react-icons/io5";
 import data from "@/data/data";
 import {
@@ -20,7 +18,6 @@ const Shop = () => {
   const { setSelectedShoe } = useShoeStore();
   const { selectedFilter } = useFilterStore();
   const [openFilter, setOpenFilter] = useState(false);
-  const [hoveredShoeId, setHoveredShoeId] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [openSearch, setOpenSearch] = useState(false);
 
@@ -33,22 +30,55 @@ const Shop = () => {
 
   let filtered = [...data];
 
-  if (searchQuery !== "") {
+  if (selectedFilter.gender) {
+    filtered = filtered.filter(
+      (item) =>
+        item.gender?.toLowerCase() === selectedFilter.gender.toLowerCase()
+    );
+  }
+
+  if (selectedFilter.category) {
+    filtered = filtered.filter(
+      (item) =>
+        item.category?.toLowerCase() === selectedFilter.category.toLowerCase()
+    );
+  }
+
+  if (
+    selectedFilter.subCategory &&
+    !selectedFilter.subCategory.toLowerCase().startsWith("all")
+  ) {
+    filtered = filtered.filter(
+      (item) =>
+        item.subCategory?.toLowerCase() ===
+        selectedFilter.subCategory.toLowerCase()
+    );
+  }
+
+  if (searchQuery.trim() !== "") {
     filtered = filtered.filter((item) =>
       item.title.toLowerCase().includes(searchQuery.toLowerCase())
     );
   }
 
-  if (selectedFilter?.category) {
-    filtered = filtered.filter(
-      (category) => category.category === selectedFilter.category
-    );
+  if (selectedFilter.order === "asc") {
+    filtered.sort((a, b) => cleanPrice(a.price) - cleanPrice(b.price));
+  } else if (selectedFilter.order === "desc") {
+    filtered.sort((a, b) => cleanPrice(b.price) - cleanPrice(a.price));
   }
 
-  if (selectedFilter?.order === "asc") {
-    filtered.sort((a, b) => cleanPrice(a.price) - cleanPrice(b.price));
-  } else if (selectedFilter?.order === "desc") {
-    filtered.sort((a, b) => cleanPrice(b.price) - cleanPrice(a.price));
+  const filterTitleParts = [];
+  if (selectedFilter.gender)
+    filterTitleParts.push(capitalize(selectedFilter.gender));
+  if (selectedFilter.category)
+    filterTitleParts.push(capitalize(selectedFilter.category));
+  if (selectedFilter.subCategory)
+    filterTitleParts.push(capitalize(selectedFilter.subCategory));
+  const filterTitle = filterTitleParts.join(" / ") || "All";
+
+  function capitalize(text) {
+    if (!text) return "";
+    return text.charAt(0).toUpperCase() + text.slice(1);
   }
 
   return (
@@ -81,14 +111,13 @@ const Shop = () => {
         <div className="py-15 px-5 w-full h-[50px] bg-s flex items-center justify-between select-none ">
           <div className="h-fit overflow-hidden">
             <motion.h2
-              className="text-[42px] text-t font-bold uppercase flex items-center gap-2
-              max-md:text-[28px]"
+              className="text-[42px] text-t font-bold uppercase flex items-center gap-2 max-md:text-[28px]"
               variants={textSlideSingleAnimation}
               initial="initial"
               animate="animate"
               custom={0.05}
             >
-              {selectedFilter?.category || "All"}
+              {filterTitle}{" "}
               <span className="relative text-[12px] top-1">
                 ({filtered.length})
               </span>
@@ -118,13 +147,14 @@ const Shop = () => {
                   </div>
                 )}
                 {openSearch && (
-                  <div className="h-fit overflow-hidden">
+                  <div className="h-fit overflow-hidden relative">
                     <motion.div
                       variants={textSlidesSearchAnimation}
                       initial="initial"
                       animate="animate"
                       exit="exit"
                       custom={0}
+                      className="relative"
                     >
                       <input
                         type="text"
@@ -133,11 +163,14 @@ const Shop = () => {
                         onChange={(e) => setSearchQuery(e.target.value)}
                         autoComplete="off"
                         placeholder="Search"
-                        className="w-full h-[30px] pl-10 border border-bb bg-ff outline-none text-t text-[10px]  uppercase"
+                        className="w-full h-[30px] pl-10 border border-bb bg-ff outline-none text-t text-[10px] uppercase"
                       />
                       <div
-                        className="absolute top-[6px] left-[10px]"
-                        onClick={() => setOpenSearch(false)}
+                        className="absolute top-[6px] left-[10px] cursor-pointer"
+                        onClick={() => {
+                          setOpenSearch(false);
+                          setSearchQuery("");
+                        }}
                       >
                         <LuSearch size={26} className="text-t" />
                       </div>
@@ -147,7 +180,10 @@ const Shop = () => {
               </div>
             </AnimatePresence>
             <div className="h-fit">
-              <div onClick={() => setOpenFilter(!openFilter)}>
+              <div
+                onClick={() => setOpenFilter(!openFilter)}
+                className="cursor-pointer"
+              >
                 <IoFilterSharp size={26} className="text-t" />
               </div>
               <AnimatePresence>
@@ -161,57 +197,31 @@ const Shop = () => {
             </div>
           </div>
         </div>
-        <div className=" px-5">
+
+        <div className="px-5">
           <p className="text-[14px] text-t/75 font-semibold">
             Football boots, running shoes, leather sneakers, everyday sneakers
             and shoes, here you will find all the Adidas footwear collections.
             Choose yours
           </p>
         </div>
+
         <div className="my-5 w-full h-0.5 bg-bb"></div>
 
         <div
           className="size-full px-5 py-5 grid grid-cols-4 gap-4 max-lg:grid-cols-2"
           key={`${selectedFilter?.order}-${selectedFilter?.category}-${searchQuery}`}
-          onMouseLeave={() => setHoveredShoeId(null)}
         >
           {filtered.map((item) => (
             <div
               key={item.id}
-              className="relative size-full flex flex-col items-start justify-start select-none group"
-              onMouseEnter={() => setHoveredShoeId(item.id)}
+              className="relative size-full flex flex-col items-start justify-start select-none group cursor-pointer"
               onClick={() => {
                 setSelectedShoe(item);
                 scrollTo({ top: 0 });
               }}
             >
-              {/*   <AnimatePresence>
-                {hoveredShoeId === item.id && (
-                  <motion.div
-                    layoutId="highlight-box"
-                    className="absolute bg-p/30 border border-f inset-0 z-0"
-                    initial={{ opacity: 0 }}
-                    animate={{
-                      opacity: 1,
-                      clipPath: "inset(0% 0% 0% 0%)",
-                      transition: {
-                        duration: 0.5,
-                        ease: [0.76, 0, 0.24, 1],
-                      },
-                    }}
-                    exit={{
-                      opacity: 0,
-                      transition: {
-                        duration: 0.5,
-                        delay: 0.1,
-                        ease: [0.76, 0, 0.24, 1],
-                      },
-                    }}
-                    style={{ padding: "2rem" }}
-                  />
-                )}
-              </AnimatePresence> */}
-
+              {/* Image and product info */}
               <motion.figure className="relative mb-4 z-10">
                 <Image
                   src={item.img}
@@ -237,7 +247,7 @@ const Shop = () => {
                 </div>
                 <div className="mb-1 h-fit overflow-hidden relative z-10">
                   <motion.h2
-                    className="text-[16px] text-t font-bold uppercase"
+                    className="text-[16px] text-t font-bold"
                     variants={slideUpWExitAnimation}
                     initial="initial"
                     animate="animate"
@@ -249,7 +259,7 @@ const Shop = () => {
                 </div>
                 <div className="mb-4 h-fit overflow-hidden relative z-10">
                   <motion.h2
-                    className="text-[14px] text-t/75 font-bold uppercase"
+                    className="text-[14px] text-t/75 font-medium capitalize"
                     variants={slideUpWExitAnimation}
                     initial="initial"
                     animate="animate"

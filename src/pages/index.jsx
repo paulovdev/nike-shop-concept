@@ -12,7 +12,6 @@ import { useMenuStore, useShoeStore } from "@/store/zustand";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import ShopShoeDetail from "@/components/shop-shoe-detail/shop-shoe-detail";
-import Contact from "@/components/nav/menu/contact";
 import Footer from "../components/footer/footer";
 import ShoesPhotosDetailMobile from "@/components/shop-photos-detail/shop-photos-detail-mobile";
 import Index from "@/components/index";
@@ -75,7 +74,6 @@ const Home = () => {
                   <div className="shop-class size-full max-lg:h-full flex flex-col items-start justify-start">
                     {selectedMenu === "shop" && <Shop />}
                     {selectedMenu === "index" && <Index />}
-                    {selectedMenu === "contact" && <Contact />}
                   </div>
                 </>
               ) : (
