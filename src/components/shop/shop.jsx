@@ -39,10 +39,8 @@ const Shop = () => {
     );
   }
 
-  if (selectedFilter?.category) {
-    filtered = filtered.filter(
-      (item) => item.category === selectedFilter.category
-    );
+  if (selectedFilter?.item) {
+    filtered = filtered.filter((item) => item.category === selectedFilter.item);
   }
 
   if (selectedFilter?.order === "asc") {
@@ -88,7 +86,7 @@ const Shop = () => {
               animate="animate"
               custom={0.05}
             >
-              {selectedFilter?.category || "All"}
+              {selectedFilter?.item || "All"}
               <span className="relative text-[12px] top-1">
                 ({filtered.length})
               </span>

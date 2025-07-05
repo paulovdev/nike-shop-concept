@@ -1,7 +1,7 @@
 import { BsBag } from "react-icons/bs";
-
-import { AnimatePresence, motion } from "framer-motion";
+import { SiNike } from "react-icons/si";
 import { MdKeyboardReturn } from "react-icons/md";
+import { AnimatePresence, motion } from "framer-motion";
 import { slideUpAnimation, slideUpWExitAnimation } from "./animations";
 import TextSlide from "@/components/reusable/text-slide";
 import {
@@ -10,21 +10,25 @@ import {
   useMenuStore,
   useShoeStore,
 } from "@/store/zustand";
-import { SiNike } from "react-icons/si";
-
+import { megaMenuCategories } from "@/data/filterData";
+import MegaMenu from "./mega-menu/mega-menu";
+import { useState } from "react";
 const Nav = ({ setMenuModal, setCartModal }) => {
   const { cart } = useCartStore();
   const { setSelectedShoe, selectedShoe } = useShoeStore();
-  const { setSelectedMenu } = useMenuStore();
+  const { setSelectedMenu, selectedMenu } = useMenuStore();
   const { setSelectedFilter, selectedFilter } = useFilterStore();
-  const indexMenu = setSelectedMenu === "index";
+  const [hoveredCategory, setHoveredCategory] = useState(null);
+
+  const indexMenu = selectedMenu === "index";
   const shoeDetails = selectedShoe === null;
-  const categories = ["shoes", "clothing", "accessories", "sports", "limited"];
 
   const scrollingShopToTop = () => {
     const scrollContainer = document.querySelector(".shop-class");
     scrollContainer?.scrollTo({ top: 0 });
   };
+
+  console.log(hoveredCategory);
 
   return (
     <>
@@ -106,47 +110,63 @@ const Nav = ({ setMenuModal, setCartModal }) => {
 
           {/* NAV */}
           <AnimatePresence>
-            {" "}
             {shoeDetails && (
               <div
-                className={`relative w-full h-fit flex items-center justify-center gap-8 max-lg:hidden`}
+                className={`w-fit h-full text-t z-50  max-lg:hidden`}
+                onMouseLeave={() => setHoveredCategory(null)}
               >
-                <div className="absolute h-fit overflow-hidden">
-                  <motion.div
-                    className="flex items-center overflow-hidden gap-8"
-                    variants={slideUpAnimation}
-                    initial="initial"
-                    animate="animate"
-                    exit="exit"
-                    custom={0.1}
-                  >
-                    {categories.map((category, i) => (
-                      <div
-                        key={i}
-                        onClick={() => {
-                        
-                          setSelectedFilter((prev) => ({
-                            ...prev,
-                            category,
-                          }));
-                          setSelectedShoe(null);
-                          setSelectedMenu("shop");
-                          scrollingShopToTop();
-                        }}
-                      >
-                        <TextSlide
-                          text={category}
-                          spanClass={
-                            !indexMenu && selectedFilter.category === category
+                <div className="h-[50px] flex items-center overflow-hidden">
+                  <div className="h-fit overflow-hidden">
+                    <motion.div
+                      className=" flex items-center "
+                      variants={slideUpAnimation}
+                      initial="initial"
+                      animate="animate"
+                      exit="exit"
+                      custom={0.1}
+                    >
+                      {megaMenuCategories.map((category, i) => (
+                        <div
+                          key={i}
+                          onMouseEnter={() => setHoveredCategory(category)}
+                          onClick={() => {
+                            setSelectedFilter((prev) => ({
+                              ...prev,
+                              category: category.title,
+                            }));
+                            setSelectedShoe(null);
+                            setSelectedMenu("shop");
+                            scrollingShopToTop();
+                          }}
+                          className="px-5"
+                        >
+                          <TextSlide
+                            text={category.title}
+                            spanClass="text-[14px]"
+                            /*  spanClass={
+                            !indexMenu &&
+                            selectedFilter.category === category.title
                               ? "text-t/100 text-[14px]"
                               : "text-t/50 text-[14px]"
-                          }
-                          customHeight="h-[21px]"
-                        />
-                      </div>
-                    ))}
-                  </motion.div>
+                          } */
+                            customHeight="h-[21px]"
+                          />
+                        </div>
+                      ))}
+                    </motion.div>
+                  </div>
                 </div>
+                <AnimatePresence>
+                  {hoveredCategory && (
+                    <MegaMenu
+                      hoveredCategory={hoveredCategory}
+                      setHoveredCategory={setHoveredCategory}
+                      setSelectedShoe={setSelectedShoe}
+                      scrollingShopToTop={scrollingShopToTop}
+                      setSelectedMenu={setSelectedMenu}
+                    />
+                  )}
+                </AnimatePresence>
               </div>
             )}
           </AnimatePresence>
@@ -183,6 +203,22 @@ const Nav = ({ setMenuModal, setCartModal }) => {
           </div>
         </div>
       </nav>
+      {/*   <div
+        className="w-fit h-full text-t bg-t  cursor-pointer z-50"
+        onMouseEnter={() => setHoveredCategory("men")}
+        onMouseLeave={() => setHoveredCategory(null)}
+      >
+        <div className="text-p">piroca</div>
+        <AnimatePresence>
+          {hoveredCategory && (
+            <MegaMenu
+              hoveredCategory={hoveredCategory}
+              setHoveredCategory={setHoveredCategory}
+              setSelectedShoe={setSelectedShoe}
+            />
+          )}
+        </AnimatePresence>
+      </div> */}
     </>
   );
 };

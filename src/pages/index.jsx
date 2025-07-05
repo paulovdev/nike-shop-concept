@@ -16,7 +16,7 @@ import Contact from "@/components/nav/menu/contact";
 import Footer from "../../public/footer/footer";
 import ShoesPhotosDetailMobile from "@/components/shop-photos-detail/shop-photos-detail-mobile";
 import Index from "@/components/index";
-import PromoNav from "@/components/promo-nav/promo-nav";
+import PromoNav from "@/components/nav/promo-nav/promo-nav";
 
 const Home = () => {
   const [menuModal, setMenuModal] = useState(false);

@@ -8,7 +8,7 @@ import { TbRulerMeasure } from "react-icons/tb";
 import { ShoppingCart, X } from "lucide-react";
 import { useState } from "react";
 import { FaCopy, FaInstagram, FaThreads, FaWhatsapp } from "react-icons/fa6";
-import PromoNav from "../promo-nav/promo-nav";
+import PromoNav from "../nav/promo-nav/promo-nav";
 
 const ShopShoeDetail = () => {
   const { selectedShoe } = useShoeStore();

@@ -43,3 +43,22 @@ export const slideUpAnimation = {
     },
   }),
 };
+
+export const megaMenuAnimation = {
+  menuOpen: {
+    height: "30vh",
+    transition: {
+      duration: 0.3,
+      type: "tween",
+      ease: [0.76, 0, 0.24, 1],
+    },
+  },
+  menuClosed: {
+    height: "0vh",
+    transition: {
+      duration: 0.3,
+      type: "tween",
+      ease: [0.76, 0, 0.24, 1],
+    },
+  },
+};
